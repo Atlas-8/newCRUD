@@ -38,30 +38,14 @@ public class UserService {
         }
     }
 
-    public boolean deleteUser(String name) {
-        Connection connection = getMysqlConnection();
-        try (Statement stmt = connection.createStatement()) {
-            stmt.executeUpdate("DELETE FROM users WHERE name='" + name + "'");
-            return true;
-        } catch (SQLException e) {
-            return false;
-        }
-    }
-
-    public void deleteUserById(long id) {
-        Connection connection = getMysqlConnection();
-        try (Statement stmt = connection.createStatement()) {
-            stmt.executeUpdate("DELETE FROM users WHERE id=" + id);
-        } catch (SQLException e) {
-
-        }
+    public void deleteUserById(long id) throws SQLException {
+        UserDAO dao = getUserDAO();
+        dao.deleteUserById(id);
     }
 
     public void addUser(User user) throws Exception {
         UserDAO dao = getUserDAO();
-        Connection connection = getMysqlConnection();
         dao.addUser(user);
-        connection.close();
     }
 
     public void cleanUp() throws Exception {

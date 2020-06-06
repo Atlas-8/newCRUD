@@ -40,12 +40,18 @@ public class UserDAO {
         }
     }
 
+    public void deleteUserById(long id) throws SQLException {
+        Statement stmt = connection.createStatement();
+        stmt.executeUpdate("DELETE FROM users WHERE id=" + id);
+        stmt.close();
+    }
+
     public long getUserIdByName(String name) throws SQLException {
         Statement stmt = connection.createStatement();
         stmt.execute("SELECT * FROM users WHERE name='" + name + "';");
         ResultSet result = stmt.getResultSet();
         result.next();
-        Long id = result.getLong(1);
+        long id = result.getLong(1);
         result.close();
         stmt.close();
         return id;
@@ -84,6 +90,13 @@ public class UserDAO {
     public void dropTable() throws SQLException {
         Statement stmt = connection.createStatement();
         stmt.executeUpdate("DROP TABLE IF EXISTS user");
+        stmt.close();
+    }
+
+
+    public void deleteUser(String name) throws SQLException {
+        Statement stmt = connection.createStatement();
+        stmt.executeUpdate("DELETE FROM users WHERE name='" + name + "'");
         stmt.close();
     }
 }
