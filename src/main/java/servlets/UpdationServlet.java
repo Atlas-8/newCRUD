@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 
 @WebServlet(urlPatterns = "/updateUser")
 public class UpdationServlet extends HttpServlet {
@@ -19,8 +20,8 @@ public class UpdationServlet extends HttpServlet {
         String name = req.getParameter("name");
         long age = Long.parseLong(req.getParameter("age"));
         User user = new User(id, name, age);
-        userService.deleteUserById(id);
         try {
+            userService.deleteUserById(id);
             userService.addUser(user);
         } catch (Exception e) {
             e.printStackTrace();

@@ -46,17 +46,6 @@ public class UserDAO {
         stmt.close();
     }
 
-    public long getUserIdByName(String name) throws SQLException {
-        Statement stmt = connection.createStatement();
-        stmt.execute("SELECT * FROM users WHERE name='" + name + "';");
-        ResultSet result = stmt.getResultSet();
-        result.next();
-        long id = result.getLong(1);
-        result.close();
-        stmt.close();
-        return id;
-    }
-
     public User getUserByName(String name) throws SQLException {
         try (Statement stmt = connection.createStatement()) {
             stmt.execute("SELECT * FROM users WHERE name='" + name + "';");
@@ -91,6 +80,17 @@ public class UserDAO {
         Statement stmt = connection.createStatement();
         stmt.executeUpdate("DROP TABLE IF EXISTS user");
         stmt.close();
+    }
+
+    public long getUserIdByName(String name) throws SQLException {
+        Statement stmt = connection.createStatement();
+        stmt.execute("SELECT * FROM users WHERE name='" + name + "';");
+        ResultSet result = stmt.getResultSet();
+        result.next();
+        long id = result.getLong(1);
+        result.close();
+        stmt.close();
+        return id;
     }
 
 
